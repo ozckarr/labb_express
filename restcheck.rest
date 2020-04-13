@@ -1,0 +1,28 @@
+GET http://localhost:3000/potatoes
+
+###
+
+POST http://localhost:3000/potatoes
+Content-Type: application/json
+
+{
+        "name": "Kennett",
+        "potatoType": "Mittimellan",
+        "color": "Nixpix",
+        "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9f/King_Edward.jpg"
+}
+
+###
+
+PUT http://localhost:3000/potatoes/1
+Content-Type: application/json
+
+{
+        "name": "Kennett",
+        "potatoType": "Mittimellan",
+        "color": "Nixpix",
+        "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9f/King_Edward.jpg"
+}
+
+###
+DELETE http://localhost:3000/potatoes/2

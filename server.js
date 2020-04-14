@@ -32,7 +32,7 @@ app.post('/potatoes', (req,res) => {
     }
 
     const potato = {
-        id: potatoes.length+1,
+        id: potatoes.length + 1,
         name: req.body.name,
         potatoType: req.body.potatoType,
         color: req.body.color,

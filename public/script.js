@@ -113,7 +113,6 @@ document.querySelector(".addPotato").addEventListener("click", function(){
         console.log(potatoes)
         userMessage.innerHTML = "Din potatis är tillagd"
         
-        response.json(potatoes)
     })
 })
 

@@ -44,6 +44,27 @@ body{
     padding: 1em;
 }
 
+.updatePotato{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.updatePotato .potatoImage{
+    position: relative;
+    right: 1em;
+    top: 1em;
+}
+
+.updatePotato input{
+    margin: 0.5em 0;
+    height: 1.5em;
+}
+
+.updatePotato button{
+    margin: 0.5em 0;
+}
+
 .potatoDivContent button{
     height: 2em;
     width: 13em;

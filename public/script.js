@@ -1,3 +1,5 @@
+window.addEventListener('load', listPotatoes);
+
 
 function listPotatoes(){
     fetch("http://localhost:3000/potatoes").then((response) => {
@@ -17,6 +19,7 @@ function listPotatoes(){
             potatoImg.setAttribute("class", "potatoImage")
             
             let potatoDiv = document.createElement("div")
+            potatoDiv.setAttribute("class", "potatoDiv")
             potatoDiv.setAttribute("class", "potatoDiv")
             potatoDiv.appendChild(potatoName) 
             potatoDiv.appendChild(potatoType)
@@ -87,6 +90,7 @@ function printFoundPotato(potato){
         potatoChangeButton.setAttribute("onClick", `changePotatoButton(${potato.id})`)
 
         let potatoDiv = document.createElement("div")
+        potatoDiv.setAttribute("class", "updatePotato")
         potatoDiv.appendChild(searchResult)
         potatoDiv.appendChild(potatoNameLabel)
         potatoDiv.appendChild(potatoNameInput)
@@ -134,11 +138,11 @@ document.querySelector(".addPotato").addEventListener("click", function(){
         }	
         newID = Math.max(...allIDs) + 1	
         let newPotato = {	
-            id: newID,	
-            name: addPotatoName,	
-            potatoType: addPotatoType,	
-            color: addPotatoColor,	
-            imgUrl: addPotatoImgUrl	
+            "id": newID,	
+            "name": addPotatoName,	
+            "potatoType": addPotatoType,	
+            "color": addPotatoColor,	
+            "imgUrl": addPotatoImgUrl	
         }
         potatoes.push(newPotato)	
         const options = {
@@ -154,6 +158,39 @@ document.querySelector(".addPotato").addEventListener("click", function(){
         userMessage.innerHTML = "Din potatis är tillagd"
     })	
 })
+
+function changePotatoButton(potatoID){
+    const updatePotatoName = document.getElementById("updatePotatoName").value	
+    const updatePotatoType = document.getElementById("updatePotatoType").value	
+    const updatePotatoColor = document.getElementById("updatePotatoColor").value	
+    const updatePotatoImgUrl = document.getElementById("updatePotatoImgUrl").value	
+    if (updatePotatoName === "" ||	
+        updatePotatoType === "" ||	
+        updatePotatoColor === "" ||
+        updatePotatoImgUrl === ""
+    ){	
+        return console.log( "Din potatis saknar namn, typ och/eller färg")
+    }	
+    updatedPotato = {
+        "id": potatoID,
+        "name": updatePotatoName,
+        "potatoType": updatePotatoType,
+        "color": updatePotatoColor,
+        "imgUrl": updatePotatoImgUrl
+    }
+
+    fetch(`/potatoes/${potatoID}`,{
+        method: 'PUT',
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(updatedPotato)
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', JSON.stringify(response)))
+    listPotatoes()
+}
 
 
 function removePotatoButton(potatoID){

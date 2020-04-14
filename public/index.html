@@ -5,9 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potatis Databas</title>
     <script defer src="./script.js"></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <h1>Potatis databas</h1>
+    <div class="potatoDiv">
+        <input class="potatoSearchBar" type="number" >
+        <br>
+        <button class="findPotato">Hitta Potatis via ID</button>
+        <br>
+        <div class="foundPotato"></div>
+    </div>
     <div class="potatoList"></div>
+    <div class="addPotatoContainer">
+        <label for="addPotatoName">Namn</label>
+        <input id="addPotatoName" type="string" >
+        <br>
+        <label for="addPotatoType">Typ</label>
+        <input id="addPotatoType" type="string" >
+        <br>
+        <label for="addPotatoColor">Färg</label>
+        <input id="addPotatoColor" type="string" >
+        <br>
+        <label for="addPotatoImgUrl">Bild-url</label>
+        <input id="addPotatoImgUrl" type="string" >
+        <br>
+        <button class="addPotato">Lägg till potatis</button>
+        <p class="userMessage"></p>
+    </div>
 </body>
 </html>

@@ -1,0 +1,17 @@
+.potatoDiv{
+    border: 0.2em solid brown;
+    margin: 1em;
+}
+
+.potatoImage{
+    width:10em;
+    height: 10em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.addPotatoContainer{
+    border: 0.2em solid brown;
+    margin: 1em;
+}

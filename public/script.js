@@ -1,3 +1,4 @@
+
 function listPotatoes(){
     fetch("http://localhost:3000/potatoes").then((response) => {
     return response.json()
@@ -17,7 +18,7 @@ function listPotatoes(){
             
             let potatoDiv = document.createElement("div")
             potatoDiv.setAttribute("class", "potatoDiv")
-            potatoDiv.appendChild(potatoName)
+            potatoDiv.appendChild(potatoName) 
             potatoDiv.appendChild(potatoType)
             potatoDiv.appendChild(potatoColor)
             potatoDiv.appendChild(potatoImg)
@@ -47,12 +48,34 @@ function printFoundPotato(potato){
     if (potato) {
         let searchResult = document.createElement("h2")
         searchResult.innerText = "Sökresultat för: " + potato.id
-        let potatoName = document.createElement("h2")
-        potatoName.innerHTML = potato.name
-        let potatoType = document.createElement("p")
-        potatoType.innerHTML = "Typ: " + potato.potatoType
-        let potatoColor = document.createElement("p")
-        potatoColor.innerHTML = "Färg: " + potato.color
+        let potatoNameLabel = document.createElement("label")
+        potatoNameLabel.setAttribute("for", "updatePotatoName")
+        potatoNameLabel.innerHTML = "Namn: "
+        let potatoNameInput = document.createElement("input")
+        potatoNameInput.setAttribute("value", potato.name)
+        potatoNameInput.setAttribute("id", "updatePotatoName")
+
+        let potatoTypeLabel = document.createElement("label")
+        potatoTypeLabel.setAttribute("for", "updatePotatoType")
+        potatoTypeLabel.innerHTML = "Typ: "
+        let potatoTypeInput = document.createElement("input")
+        potatoTypeInput.setAttribute("value", potato.potatoType)
+        potatoTypeInput.setAttribute("id", "updatePotatoType")
+        
+        let potatoColorLabel = document.createElement("label")
+        potatoColorLabel.setAttribute("for", "updatePotatoColor")
+        potatoColorLabel.innerHTML = "Färg: "
+        let potatoColorInput = document.createElement("input")
+        potatoColorInput.setAttribute("value", potato.color)
+        potatoColorInput.setAttribute("id", "updatePotatoColor")
+
+        let potatoImgUrlLabel = document.createElement("label")
+        potatoImgUrlLabel.setAttribute("for", "updatePotatoImgUrl")
+        potatoImgUrlLabel.innerHTML = "Bild Url: "
+        let potatoImgUrlInput = document.createElement("input")
+        potatoImgUrlInput.setAttribute("value", potato.imgUrl)
+        potatoImgUrlInput.setAttribute("id", "updatePotatoImgUrl")
+
         let potatoImg = document.createElement("div")
         potatoImg.style.backgroundImage = `url("${potato.imgUrl}")`
         potatoImg.setAttribute("class", "potatoImage")
@@ -65,13 +88,17 @@ function printFoundPotato(potato){
 
         let potatoDiv = document.createElement("div")
         potatoDiv.appendChild(searchResult)
-        potatoDiv.appendChild(potatoName)
-        potatoDiv.appendChild(potatoType)
-        potatoDiv.appendChild(potatoColor)
+        potatoDiv.appendChild(potatoNameLabel)
+        potatoDiv.appendChild(potatoNameInput)
+        potatoDiv.appendChild(potatoTypeLabel)
+        potatoDiv.appendChild(potatoTypeInput)
+        potatoDiv.appendChild(potatoColorLabel)
+        potatoDiv.appendChild(potatoColorInput)
+        potatoDiv.appendChild(potatoImgUrlLabel)
+        potatoDiv.appendChild(potatoImgUrlInput)
         potatoDiv.appendChild(potatoRemoveButton)
         potatoDiv.appendChild(potatoChangeButton)
         potatoDiv.appendChild(potatoImg)
-
 
         foundPotatoContainer.appendChild(potatoDiv)
     } else {
@@ -82,51 +109,50 @@ function printFoundPotato(potato){
 }
 
 
-document.querySelector(".addPotato").addEventListener("click", function(){
-    let addPotatoName = document.getElementById("addPotatoName").value
-    let addPotatoType = document.getElementById("addPotatoType").value
-    let addPotatoColor = document.getElementById("addPotatoColor").value
-    let addPotatoImgUrl = document.getElementById("addPotatoImgUrl").value
-    let userMessage = document.querySelector(".userMessage")
-    if (addPotatoName === "" ||
-        addPotatoType === "" ||
-        addPotatoColor === ""
-    ){
-        return userMessage.innerHTML = "Din potatis saknar namn, typ och/eller färg"
-    }
-
-    if (addPotatoImgUrl === "") {
-        addPotatoImgUrl = "https://www.worldanvil.com/uploads/images/18e110943b57da2ca398dcdf7df96817.png"
-    }
-
-    fetch("http://localhost:3000/potatoes").then((response) => {
-        return response.json()
-    }).then((potatoes) => {
-        let allIDs = []
-        let newID
-        for (let i = 0; i < potatoes.length; i++) {
-            allIDs.push(potatoes[i].id)
+document.querySelector(".addPotato").addEventListener("click", function(){	
+    const addPotatoName = document.getElementById("addPotatoName").value	
+    const addPotatoType = document.getElementById("addPotatoType").value	
+    const addPotatoColor = document.getElementById("addPotatoColor").value	
+    let addPotatoImgUrl = document.getElementById("addPotatoImgUrl").value	
+    let userMessage = document.querySelector(".userMessage")	
+    if (addPotatoName === "" ||	
+        addPotatoType === "" ||	
+        addPotatoColor === ""	
+    ){	
+        return userMessage.innerHTML = "Din potatis saknar namn, typ och/eller färg"	
+    }	
+    if (addPotatoImgUrl === "") {	
+        addPotatoImgUrl = "https://www.worldanvil.com/uploads/images/18e110943b57da2ca398dcdf7df96817.png"	
+    }	
+    fetch("http://localhost:3000/potatoes").then((response) => {	
+        return response.json()	
+    }).then((potatoes) => {	
+        let allIDs = []	
+        let newID	
+        for (let i = 0; i < potatoes.length; i++) {	
+            allIDs.push(potatoes[i].id)	
+        }	
+        newID = Math.max(...allIDs) + 1	
+        let newPotato = {	
+            id: newID,	
+            name: addPotatoName,	
+            potatoType: addPotatoType,	
+            color: addPotatoColor,	
+            imgUrl: addPotatoImgUrl	
         }
-        newID = Math.max(...allIDs) + 1
-        
-        let newPotato = {
-            id: newID,
-            name: addPotatoName,
-            potatoType: addPotatoType,
-            color: addPotatoColor,
-            imgUrl: addPotatoImgUrl
-        }
-        potatoes.push(newPotato)
-        const potatoPost = {
+        potatoes.push(newPotato)	
+        const options = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(potatoes)
         }
-        fetch('/potatoes', potatoPost)
+        fetch("/potatoes", options)
+
         listPotatoes()
         userMessage.innerHTML = "Din potatis är tillagd"
-        
-    })
+    })	
 })
 
 

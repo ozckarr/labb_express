@@ -1,10 +1,10 @@
 window.addEventListener('load', listPotatoes);
 
-
 function listPotatoes(){
     fetch("http://localhost:3000/potatoes").then((response) => {
     return response.json()
     }).then((potatoes) => {
+        console.log(potatoes)
         let potatoListContainer = document.querySelector(".potatoList")
         potatoListContainer.innerHTML = ""
         potatoes.forEach(potato => {
@@ -110,90 +110,4 @@ function printFoundPotato(potato){
         errorMessage.innerText = "Den potatisen fanns inte..."
         foundPotatoContainer.appendChild(errorMessage)
     }
-}
-
-
-document.querySelector(".addPotato").addEventListener("click", function(){	
-    const addPotatoName = document.getElementById("addPotatoName").value	
-    const addPotatoType = document.getElementById("addPotatoType").value	
-    const addPotatoColor = document.getElementById("addPotatoColor").value	
-    let addPotatoImgUrl = document.getElementById("addPotatoImgUrl").value	
-    let userMessage = document.querySelector(".userMessage")	
-    if (addPotatoName === "" ||	
-        addPotatoType === "" ||	
-        addPotatoColor === ""	
-    ){	
-        return userMessage.innerHTML = "Din potatis saknar namn, typ och/eller färg"	
-    }	
-    if (addPotatoImgUrl === "") {	
-        addPotatoImgUrl = "https://www.worldanvil.com/uploads/images/18e110943b57da2ca398dcdf7df96817.png"	
-    }	
-    fetch("http://localhost:3000/potatoes").then((response) => {	
-        return response.json()	
-    }).then((potatoes) => {	
-        let allIDs = []	
-        let newID	
-        for (let i = 0; i < potatoes.length; i++) {	
-            allIDs.push(potatoes[i].id)	
-        }	
-        newID = Math.max(...allIDs) + 1	
-        let newPotato = {	
-            "id": newID,	
-            "name": addPotatoName,	
-            "potatoType": addPotatoType,	
-            "color": addPotatoColor,	
-            "imgUrl": addPotatoImgUrl	
-        }
-        potatoes.push(newPotato)	
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(potatoes)
-        }
-        fetch("/potatoes", options)
-
-        listPotatoes()
-        userMessage.innerHTML = "Din potatis är tillagd"
-    })	
-})
-
-function changePotatoButton(potatoID){
-    const updatePotatoName = document.getElementById("updatePotatoName").value	
-    const updatePotatoType = document.getElementById("updatePotatoType").value	
-    const updatePotatoColor = document.getElementById("updatePotatoColor").value	
-    const updatePotatoImgUrl = document.getElementById("updatePotatoImgUrl").value	
-    if (updatePotatoName === "" ||	
-        updatePotatoType === "" ||	
-        updatePotatoColor === "" ||
-        updatePotatoImgUrl === ""
-    ){	
-        return console.log( "Din potatis saknar namn, typ och/eller färg")
-    }	
-    updatedPotato = {
-        "id": potatoID,
-        "name": updatePotatoName,
-        "potatoType": updatePotatoType,
-        "color": updatePotatoColor,
-        "imgUrl": updatePotatoImgUrl
-    }
-
-    fetch(`/potatoes/${potatoID}`,{
-        method: 'PUT',
-        headers: {
-            "Content-Type" : "application/json"
-        },
-        body: JSON.stringify(updatedPotato)
-    })
-    .then(response => response.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', JSON.stringify(response)))
-    listPotatoes()
-}
-
-
-function removePotatoButton(potatoID){
-        fetch(`/potatoes/${potatoID}`, {method:'DELETE'})
-        listPotatoes()
 }

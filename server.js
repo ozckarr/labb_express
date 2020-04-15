@@ -1,5 +1,4 @@
 const express = require('express')
-const Joi = require('joi')
 const fs = require('fs')
 const app = express()
 
@@ -26,10 +25,11 @@ app.get('/potatoes/:id', (req,res) => {
 })
 
 app.post('/potatoes', (req,res) => {
-    const { error } = validatePotato(req.body)
-    if(error){
-        return res.status(400).send(error.details[0].message)
-    }
+
+
+    // get potatoes from JSON file
+    // do some magic
+    // save potatoes to JSON file
 
     const potato = {
         id: potatoes.length + 1,
@@ -47,12 +47,7 @@ app.put('/potatoes/:id', (req,res) => {
     if(!potato){
         return res.status(404).send('Potatisen med det ID:t fanns inte')
     }
-
-    const { error } = validatePotato(req.body)
-    if(error){
-        return res.status(400).send(error.details[0].message)
-    }
-
+    
     potato.name = req.body.name
     potato.potatoType = req.body.potatoType
     potato.color = req.body.color
@@ -72,18 +67,6 @@ app.delete('/potatoes/:id', (req,res) => {
 
     res.send(potatoes)
 })
-
-
-function validatePotato(potato) {
-    const schema = {
-        name: Joi.string().min(3).required(),
-        potatoType: Joi.string().min(3).required(),
-        color: Joi.string().min(3).required(),
-        imgUrl: Joi.string().min(3).required()
-    }
-
-    return Joi.validate(potato, schema)
-}
 
 
 const port = process.env.PORT || 3000

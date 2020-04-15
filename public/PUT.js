@@ -8,7 +8,7 @@ function changePotatoButton(potatoID){
         updatePotatoColor === "" ||
         updatePotatoImgUrl === ""
     ){	
-        return console.log( "Din potatis saknar namn, typ och/eller färg")
+        return console.log( "Din potatis saknar namn, typ, färg och/eller bild")
     }	
     updatedPotato = {
         id: potatoID,
@@ -19,16 +19,15 @@ function changePotatoButton(potatoID){
     }
 
     const json = JSON.stringify(updatedPotato)
+
     console.log(json)
-    fetch(`/potatoes/${potatoID}`,{
+    fetch(`http://localhost:3000/potatoes/${potatoID}`,{
         method: 'PUT',
         headers: {
             "Content-Type" : "application/json"
         },
         body: json
     })
-    .then(res => res.text())          // convert to plain text
-    .then(text => console.log(text)) //remove
     .then(response => response.json())
     .catch(error => console.error('Error:', error))
     .then(response => console.log('Success:', JSON.stringify(response)))

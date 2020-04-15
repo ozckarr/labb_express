@@ -25,11 +25,9 @@ app.get('/potatoes/:id', (req,res) => {
 })
 
 app.post('/potatoes', (req,res) => {
-
-
-    // get potatoes from JSON file
-    // do some magic
-    // save potatoes to JSON file
+    if(!req.body.name || !req.body.potatoType || !req.body.color || !req.body.imgUrl){
+        return res.status(400).send('You missed something in your input.')
+    }
 
     const potato = {
         id: potatoes.length + 1,

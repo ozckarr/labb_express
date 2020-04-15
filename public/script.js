@@ -9,7 +9,7 @@ function listPotatoes(){
         potatoListContainer.innerHTML = ""
         potatoes.forEach(potato => {
             let potatoName = document.createElement("h2")
-            potatoName.innerHTML = potato.name
+            potatoName.innerHTML = potato.id + ": " + potato.name
             let potatoType = document.createElement("p")
             potatoType.innerHTML = "Typ: " + potato.potatoType
             let potatoColor = document.createElement("p")
@@ -47,9 +47,10 @@ document.querySelector(".findPotato").addEventListener("click", function(){
 function printFoundPotato(potato){
     let foundPotatoContainer = document.querySelector(".foundPotato")
     foundPotatoContainer.innerHTML = ""
-
+    let userFindMessage = document.querySelector(".userFindMessage")
+    userFindMessage.innerHTML = ""
     if (potato) {
-        let searchResult = document.createElement("h2")
+        let searchResult = document.createElement("p")
         searchResult.innerText = "Sökresultat för: " + potato.id
         let potatoNameLabel = document.createElement("label")
         potatoNameLabel.setAttribute("for", "updatePotatoName")

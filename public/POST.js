@@ -38,5 +38,9 @@ document.querySelector(".addPotato").addEventListener("click", function(){
         })
 
         listPotatoes()
+        document.getElementById("addPotatoName").value = ""	
+        document.getElementById("addPotatoType").value = ""
+        document.getElementById("addPotatoColor").value	= ""
+        document.getElementById("addPotatoImgUrl").value = ""
         userMessage.innerHTML = "Din potatis är tillagd"
 })

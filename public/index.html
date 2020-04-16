@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potatis Databas</title>
-    <script defer src="./script.js"></script>
+    <script defer src="./GET.js"></script>
+    <script defer src="./PUT.js"></script>
+    <script defer src="./POST.js"></script>
+    <script defer src="./DELETE.js"></script>
     <link rel="stylesheet" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
@@ -13,16 +16,18 @@
         <h1>Potatis databas</h1>
         <div class="potatoDiv">
             <div class="potatoDivContent">
+                <h3>Hitta potatis</h3>
                 <input class="potatoSearchBar" type="number" >
                 <br>
                 <button class="findPotato">Hitta Potatis via ID</button>
-                <br>
             </div>
             <div class="foundPotato"></div>
+            <p class="userFindMessage"></p>
         </div>
         <div class="potatoList"></div>
         <div class="potatoDiv">
             <div class="potatoDivContent">
+                <h3>Lägg till potatis</h3>
                 <label for="addPotatoName">Namn</label>
                 <input id="addPotatoName" type="string" >
                 <br>

@@ -1,5 +1,4 @@
 const express = require('express')
-const Joi = require('joi')
 const fs = require('fs')
 const app = express()
 
@@ -26,13 +25,20 @@ app.get('/potatoes/:id', (req,res) => {
 })
 
 app.post('/potatoes', (req,res) => {
-    const { error } = validatePotato(req.body)
-    if(error){
-        return res.status(400).send(error.details[0].message)
+    if(!req.body.name || !req.body.potatoType || !req.body.color || !req.body.imgUrl){
+        return res.status(400).send('You missed something in your input.')
     }
 
+    //new ID. Checks for the highest Id and add 1
+    let allIDs = []
+    let newID
+    for (let i = 0; i < potatoes.length; i++) {
+        allIDs.push(potatoes[i].id)
+    }
+    newID = Math.max(...allIDs) + 1
+
     const potato = {
-        id: potatoes.length+1,
+        id: potatoes.length + 1,
         name: req.body.name,
         potatoType: req.body.potatoType,
         color: req.body.color,
@@ -47,12 +53,7 @@ app.put('/potatoes/:id', (req,res) => {
     if(!potato){
         return res.status(404).send('Potatisen med det ID:t fanns inte')
     }
-
-    const { error } = validatePotato(req.body)
-    if(error){
-        return res.status(400).send(error.details[0].message)
-    }
-
+    
     potato.name = req.body.name
     potato.potatoType = req.body.potatoType
     potato.color = req.body.color
@@ -72,18 +73,6 @@ app.delete('/potatoes/:id', (req,res) => {
 
     res.send(potatoes)
 })
-
-
-function validatePotato(potato) {
-    const schema = {
-        name: Joi.string().min(3).required(),
-        potatoType: Joi.string().min(3).required(),
-        color: Joi.string().min(3).required(),
-        imgUrl: Joi.string().min(3).required()
-    }
-
-    return Joi.validate(potato, schema)
-}
 
 
 const port = process.env.PORT || 3000

@@ -29,6 +29,14 @@ app.post('/potatoes', (req,res) => {
         return res.status(400).send('You missed something in your input.')
     }
 
+    //new ID. Checks for the highest Id and add 1
+    let allIDs = []
+    let newID
+    for (let i = 0; i < potatoes.length; i++) {
+        allIDs.push(potatoes[i].id)
+    }
+    newID = Math.max(...allIDs) + 1
+
     const potato = {
         id: potatoes.length + 1,
         name: req.body.name,

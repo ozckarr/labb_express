@@ -1,15 +1,15 @@
 window.addEventListener('load', listPotatoes);
 
 function listPotatoes(){
-    fetch("http://localhost:3000/potatoes").then((response) => {
-    return response.json()
+    fetch("http://localhost:3000/potatoes")
+    .then((response) => { return response.json()
     }).then((potatoes) => {
         console.log(potatoes)
         let potatoListContainer = document.querySelector(".potatoList")
         potatoListContainer.innerHTML = ""
         potatoes.forEach(potato => {
             let potatoName = document.createElement("h2")
-            potatoName.innerHTML = potato.id + ": " + potato.name
+            potatoName.innerHTML = potato.id + ". " + potato.name
             let potatoType = document.createElement("p")
             potatoType.innerHTML = "Typ: " + potato.potatoType
             let potatoColor = document.createElement("p")

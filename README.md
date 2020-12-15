@@ -9,8 +9,8 @@ When you have a specific potato you are able to edit it (using PUT.js) or delete
 In the bottom of the page you can add potatoes. (using POST.js)
 
 # Installation
-npm i
-node server.js
+‘npm install’ 
+’node server.js’
 
 browser
 http://localhost:3000/

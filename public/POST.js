@@ -1,25 +1,21 @@
 
-document.querySelector(".addPotato").addEventListener("click", function(){	
-    const addPotatoName = document.getElementById("addPotatoName").value	
-    const addPotatoType = document.getElementById("addPotatoType").value	
-    const addPotatoColor = document.getElementById("addPotatoColor").value	
-    let addPotatoImgUrl = document.getElementById("addPotatoImgUrl").value	
+document.querySelector(".addPotato").addEventListener("click", function(){
+
+    let addedPotato = addedPotatoData()
+
     let userMessage = document.querySelector(".userMessage")	
-    if (addPotatoName === "" ||	
-        addPotatoType === "" ||	
-        addPotatoColor === ""	
-    ){	
+    if (missingPotatoData(addedPotato)){	
         return userMessage.innerHTML = "Din potatis saknar namn, typ och/eller färg"	
     }	
-    if (addPotatoImgUrl === "") {	
-        addPotatoImgUrl = "https://www.worldanvil.com/uploads/images/18e110943b57da2ca398dcdf7df96817.png"	
+    if (addedPotato.imgUrl === "") {	
+        addedPotato.imgUrl = "https://www.worldanvil.com/uploads/images/18e110943b57da2ca398dcdf7df96817.png"	
     }	
 
         let newPotato = {	
-            name: addPotatoName,	
-            potatoType: addPotatoType,	
-            color: addPotatoColor,	
-            imgUrl: addPotatoImgUrl	
+            name: addedPotato.name,	
+            potatoType: addedPotato.type,	
+            color: addedPotato.color,	
+            imgUrl: addedPotato.imgUrl	
         }
         const options = {
             method: 'POST',
@@ -44,3 +40,23 @@ document.querySelector(".addPotato").addEventListener("click", function(){
         document.getElementById("addPotatoImgUrl").value = ""
         userMessage.innerHTML = "Din potatis är tillagd"
 })
+
+function addedPotatoData(){
+    let addedPotato = {
+        name: document.getElementById("addPotatoName").value,	
+        type: document.getElementById("addPotatoType").value,	
+        color: document.getElementById("addPotatoColor").value,	
+        imgUrl: document.getElementById("addPotatoImgUrl").value	
+    }
+    return addedPotato
+}
+
+function missingPotatoData(potato){
+    if(
+        potato.name === "" ||	
+        potato.type === "" ||	
+        potato.color === ""
+    ){
+        return true
+    }
+}

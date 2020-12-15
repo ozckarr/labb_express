@@ -53,7 +53,6 @@ app.put('/potatoes/:id', (req,res) => {
     if(!potato){
         return res.status(404).send('Potatisen med det ID:t fanns inte')
     }
-    
     potato.name = req.body.name
     potato.potatoType = req.body.potatoType
     potato.color = req.body.color
@@ -67,13 +66,10 @@ app.delete('/potatoes/:id', (req,res) => {
     if(!potato){
         return res.status(404).send('Potatisen med det ID:t fanns inte')
     }
-
     const index = potatoes.indexOf(potato)
     potatoes.splice(index, 1)
-
     res.send(potatoes)
 })
-
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Potatisarna finns ni i ${port}`))

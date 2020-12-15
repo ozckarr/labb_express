@@ -1,4 +1,4 @@
-function changePotatoButton(potatoID){
+function updatePotato(potatoID){
     const updatePotatoName = document.getElementById("updatePotatoName").value	
     const updatePotatoType = document.getElementById("updatePotatoType").value	
     const updatePotatoColor = document.getElementById("updatePotatoColor").value	
